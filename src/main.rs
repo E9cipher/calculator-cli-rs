@@ -2,7 +2,7 @@ use std::io::{Write, stdin};
 
 fn main() {
     println!(
-        "Please enter two numbers and an operator space-separated, like \"2 2 +\" which will result in 4"
+        "Please enter two numbers and an operator space-separated, like \"2 2 +\"."
     );
     println!("+ to sum, - to subtract, * to multiply and / to divide. Use Ctrl+C to exit.");
     // Type \"quit\" or \"q\" to exit.

@@ -1,9 +1,7 @@
 use std::io::{Write, stdin};
 
 fn main() {
-    println!(
-        "Please enter two numbers and an operator space-separated, like \"2 2 +\"."
-    );
+    println!("Please enter two numbers and an operator space-separated, like \"2 2 +\".");
     println!("+ to sum, - to subtract, * to multiply and / to divide. Use Ctrl+C to exit.");
     // Type \"quit\" or \"q\" to exit.
     loop {
@@ -12,7 +10,7 @@ fn main() {
         flush();
         stdin().read_line(&mut whole).expect("Failed to read line.");
         let whole: Vec<&str> = whole.split(" ").collect();
-        if let [first_digit, second_digit, operator] = &whole[0..2] {
+        if let [first_digit, second_digit, operator] = &whole[0..=2] {
             let first_digit: i32 = first_digit.trim().parse().expect("ERR: First digit is NaN");
             let second_digit: i32 = second_digit
                 .trim()

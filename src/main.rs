@@ -33,12 +33,13 @@ fn main() {
         };
         let operator = operator.trim();
 
+        let math = Maths::new(first_digit, second_digit);
         let result = match operator {
-            "+" => sum(first_digit, second_digit),
-            "-" => subtract(first_digit, second_digit),
-            "*" => multiply(first_digit, second_digit),
-            "/" => divide(first_digit, second_digit),
-            &_ => panic!("Invalid operator!"),
+            "+" => math.sum(),
+            "-" => math.subtract(),
+            "*" => math.multiply(),
+            "/" => math.divide(),
+            _ => panic!("Invalid operator!"),
         };
 
         println!("Result is: {result}\n");
@@ -53,18 +54,29 @@ fn parse_to_i32(s: &str) -> Result<i32, ParseIntError> {
     s.trim().parse()
 }
 
-fn sum(digit1: i32, digit2: i32) -> i32 {
-    digit1 + digit2
+struct Maths {
+    digit1: i32,
+    digit2: i32,
 }
 
-fn subtract(digit1: i32, digit2: i32) -> i32 {
-    digit1 - digit2
-}
+impl Maths {
+    pub fn new(digit1: i32, digit2: i32) -> Maths {
+        Maths { digit1, digit2 }
+    }
 
-fn multiply(digit1: i32, digit2: i32) -> i32 {
-    digit1 * digit2
-}
+    pub fn sum(&self) -> i32 {
+        self.digit1 + self.digit2
+    }
 
-fn divide(digit1: i32, digit2: i32) -> i32 {
-    digit1 / digit2
+    pub fn subtract(&self) -> i32 {
+        self.digit1 - self.digit2
+    }
+
+    pub fn multiply(&self) -> i32 {
+        self.digit1 * self.digit2
+    }
+
+    pub fn divide(&self) -> i32 {
+        self.digit1 / self.digit2
+    }
 }

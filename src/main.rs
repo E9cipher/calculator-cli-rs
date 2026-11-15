@@ -20,14 +20,14 @@ fn main() {
         let first_digit = match parse_to_i32(first_digit) {
             Ok(n) => n,
             Err(_) => {
-                println!("ERROR: First digit is an invalid number!\n");
+                error("ERROR: First digit is an invalid number!");
                 continue;
             }
         };
         let second_digit: i32 = match parse_to_i32(second_digit) {
             Ok(n) => n,
             Err(_) => {
-                println!("ERROR: Second digit is an invalid number!\n");
+                error("ERROR: Second digit is an invalid number!");
                 continue;
             }
         };
@@ -39,6 +39,10 @@ fn main() {
             "-" => math.subtract(),
             "*" => math.multiply(),
             "/" => math.divide(),
+            "**" | "^" => {
+                math.are_digits_positive();
+                math.pow()
+            }
             _ => panic!("Invalid operator!"),
         };
 
@@ -54,6 +58,10 @@ fn parse_to_i32(s: &str) -> Result<i32, ParseIntError> {
     s.trim().parse()
 }
 
+fn error(err_msg: &str) -> () {
+    println!("{}\n", err_msg);
+}
+
 struct Maths {
     digit1: i32,
     digit2: i32,
@@ -62,6 +70,10 @@ struct Maths {
 impl Maths {
     pub fn new(digit1: i32, digit2: i32) -> Maths {
         Maths { digit1, digit2 }
+    }
+
+    pub fn are_digits_positive(&self) -> bool {
+        self.digit1 >= 0 && self.digit2 >= 0
     }
 
     pub fn sum(&self) -> i32 {
@@ -78,5 +90,17 @@ impl Maths {
 
     pub fn divide(&self) -> i32 {
         self.digit1 / self.digit2
+    }
+
+    pub fn pow(&self) -> i32 {
+        if self.digit1 == 0 && self.digit2 == 0 {
+            todo!("Indetermination!");
+        }
+
+        let mut result = 1;
+        for _ in 1..=self.digit2 {
+            result = result * self.digit1;
+        }
+        result
     }
 }
